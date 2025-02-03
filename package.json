@@ -5,6 +5,8 @@
   "author": "Sanjeev Shrestha",
   "scripts": {
     "start": "grunt default",
+    "serve": "rspack server",
+    "build": "rspack build",
     "readme": "grunt readme",
     "i18n": "grunt i18n"
   },
