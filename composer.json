@@ -28,27 +28,12 @@
     }
   },
   "require": {
-    "php": ">=7.0.0",
-    "halaxa/json-machine": "^1.1",
-    "league/container": "3.4.1",
-    "pelago/emogrifier": "3.1.0",
-    "psr/container": "1.0.0"
-  },
-  "require-dev": {
-    "composer/installers": "^2.0",
-    "dealerdirect/phpcodesniffer-composer-installer": "0.7.0",
-    "phpcompatibility/phpcompatibility-wp": "2.1.0",
-    "phpunit/phpunit": "^5.7.21 || ^6.5 || ^7.5",
-    "roots/wordpress": "^5.8",
-    "spatie/phpunit-watcher": "^1.23",
-    "vlucas/phpdotenv": "^5.4",
-    "wp-cli/db-command": "^2.0",
-    "wp-cli/i18n-command": "^v2.2.13",
-    "wp-cli/wp-cli": "^2.4",
-    "wp-coding-standards/wpcs": "^2.3",
-    "wp-phpunit/wp-phpunit": "^5.8",
-    "yoast/phpunit-polyfills": "^1.0",
-    "yoast/wp-test-utils": "^1.0"
+    "composer/installers": "^2.3",
+    "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
+    "halaxa/json-machine": "^1.2",
+    "league/container": "^4.2",
+    "pelago/emogrifier": "^7.3",
+    "psr/container": "^2.0"
   },
   "scripts": {
     "test:php:unit": [
@@ -89,5 +74,18 @@
       "makepot-audit": "Generate i18n/languages/masteriyo.pot file and run audit",
       "makepot": "Generate i18n/languages/masteriyo.pot file"
     }
+  },
+  "require-dev": {
+    "phpcompatibility/phpcompatibility-wp": "^2.1",
+    "phpunit/phpunit": "^11.5",
+    "roots/wordpress": "^6.7",
+    "spatie/phpunit-watcher": "^1.24",
+    "vlucas/phpdotenv": "^5.6",
+    "wp-cli/db-command": "^2.1",
+    "wp-cli/i18n-command": "^2.6",
+    "wp-cli/wp-cli": "^2.12@dev",
+    "wp-coding-standards/wpcs": "^3.1",
+    "wp-phpunit/wp-phpunit": "^6.7",
+    "yoast/phpunit-polyfills": "^3.1"
   }
 }
