@@ -1,67 +1,62 @@
-import { defineConfig } from "@rspack/cli";
-import { rspack } from "@rspack/core";
-import * as RefreshPlugin from "@rspack/plugin-react-refresh";
-
-const isDev = process.env.NODE_ENV === "development";
-
-// Target browsers, see: https://github.com/browserslist/browserslist
-const targets = ["chrome >= 87", "edge >= 88", "firefox >= 78", "safari >= 14"];
-
-export default defineConfig({
+const ReactRefreshPlugin = require("@rspack/plugin-react-refresh");
+const path = require("path");
+module.exports = {
   context: __dirname,
-  entry: {
-    main: "./src/main.tsx",
+  mode: "development",
+  entry: "./src/main.tsx", // Adjust the entry point as needed
+  output: {
+    path: path.resolve(__dirname, "dist"), // Output directory for the bundle
+    filename: "bundle.js", // Output filename
+    publicPath: "http://localhost:3000/dist",
   },
-  resolve: {
-    extensions: ["...", ".ts", ".tsx", ".jsx"],
+  devServer: {
+    hot: true, // Enable Hot Module Replacement (HMR)
+    open: true,
+    port: 3000,
+    host: "localhost",
+    allowedHosts: "all",
+    headers: { "Access-Control-Allow-Origin": "*" },
+    client: {
+      overlay: false,
+    },
+
+    static: {
+      directory: path.join(__dirname, "dist"),
+    },
+  },
+  externals: {
+    react: "React",
+    "react-dom": "ReactDOM",
   },
   module: {
     rules: [
       {
-        test: /\.svg$/,
-        type: "asset",
+        test: /\.jsx?$/, // Match .js and .jsx files
+        use: {
+          loader: "babel-loader", // Use Babel for JS/JSX files
+          options: {
+            plugins: [require.resolve("react-refresh/babel")], // Enable React Refresh
+          },
+        },
+        exclude: /node_modules/,
       },
       {
-        test: /\.(jsx?|tsx?)$/,
-        use: [
-          {
-            loader: "builtin:swc-loader",
-            options: {
-              jsc: {
-                parser: {
-                  syntax: "typescript",
-                  tsx: true,
-                },
-                transform: {
-                  react: {
-                    runtime: "automatic",
-                    development: isDev,
-                    refresh: isDev,
-                  },
-                },
-              },
-              env: { targets },
-            },
+        test: /\.tsx?$/, // Match .ts and .tsx files
+        use: {
+          loader: "builtin:swc-loader", // Use ts-loader for TypeScript files
+          options: {
+            transpileOnly: true, // Faster builds with type checking disabled
           },
-        ],
+        },
+        exclude: /node_modules/,
       },
     ],
   },
   plugins: [
-    new rspack.HtmlRspackPlugin({
-      template: "./index.html",
-    }),
-    isDev ? new RefreshPlugin() : null,
-  ].filter(Boolean),
-  optimization: {
-    minimizer: [
-      new rspack.SwcJsMinimizerRspackPlugin(),
-      new rspack.LightningCssMinimizerRspackPlugin({
-        minimizerOptions: { targets },
-      }),
-    ],
+    new ReactRefreshPlugin(), // Enable React Refresh
+  ],
+  resolve: {
+    extensions: [".js", ".jsx", ".ts", ".tsx"], // Resolve these file extensions
   },
-  experiments: {
-    css: true,
-  },
-});
+  devtool: "cheap-module-source-map",
+};

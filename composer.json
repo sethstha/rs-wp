@@ -1,0 +1,93 @@
+{
+  "name": "sanjeev/rs-wp",
+  "description": "rust based WordPress bundler",
+  "version": "1.6.11",
+  "license": "MIT",
+  "type": "wordpress-plugin",
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "authors": [
+    {
+      "name": "sanjeev/rs-wp",
+      "email": "sethstha@gmail.com"
+    }
+  ],
+  "config": {
+    "process-timeout": 0,
+    "sort-packages": true,
+    "preferred-install": "dist",
+    "allow-plugins": {
+      "composer/installers": true,
+      "roots/wordpress-core-installer": true,
+      "dealerdirect/phpcodesniffer-composer-installer": true
+    }
+  },
+  "autoload": {
+    "psr-4": {
+      "RSWP\\": "includes/"
+    }
+  },
+  "require": {
+    "php": ">=7.0.0",
+    "halaxa/json-machine": "^1.1",
+    "league/container": "3.4.1",
+    "pelago/emogrifier": "3.1.0",
+    "psr/container": "1.0.0"
+  },
+  "require-dev": {
+    "composer/installers": "^2.0",
+    "dealerdirect/phpcodesniffer-composer-installer": "0.7.0",
+    "phpcompatibility/phpcompatibility-wp": "2.1.0",
+    "phpunit/phpunit": "^5.7.21 || ^6.5 || ^7.5",
+    "roots/wordpress": "^5.8",
+    "spatie/phpunit-watcher": "^1.23",
+    "vlucas/phpdotenv": "^5.4",
+    "wp-cli/db-command": "^2.0",
+    "wp-cli/i18n-command": "^v2.2.13",
+    "wp-cli/wp-cli": "^2.4",
+    "wp-coding-standards/wpcs": "^2.3",
+    "wp-phpunit/wp-phpunit": "^5.8",
+    "yoast/phpunit-polyfills": "^1.0",
+    "yoast/wp-test-utils": "^1.0"
+  },
+  "scripts": {
+    "test:php:unit": [
+      "./vendor/bin/phpunit"
+    ],
+    "phpcs": [
+      "phpcs"
+    ],
+    "phpcbf": [
+      "phpcbf"
+    ],
+    "makepot-audit": [
+      "wp i18n make-pot . --slug=masteriyo"
+    ],
+    "makepot": [
+      "\"vendor/bin/wp\" i18n make-pot . ./i18n/languages/masteriyo.pot --include=\"assets/js/build,includes,templates\""
+    ],
+    "post-update-cmd": [
+      "@php -r \"! file_exists( '.env' ) && copy( '.env.example', '.env' );\"",
+      "rm -rf wp-content"
+    ],
+    "test": [
+      "@test:reset",
+      "phpunit --verbose --testdox --colors=always"
+    ],
+    "test:watch": [
+      "phpunit-watcher watch"
+    ],
+    "test:reset": [
+      "wp db reset --yes --path=tests/wordpress --color"
+    ]
+  },
+  "extra": {
+    "wordpress-install-dir": "tests/wordpress",
+    "scripts-description": {
+      "phpcs": "Analyze code against the WordPress coding standard with PHP_CodeSniffer",
+      "phpcbf": "Fix coding standards warnings/errors automatically with PHP Code Beautifier",
+      "makepot-audit": "Generate i18n/languages/masteriyo.pot file and run audit",
+      "makepot": "Generate i18n/languages/masteriyo.pot file"
+    }
+  }
+}
