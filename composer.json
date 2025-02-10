@@ -42,14 +42,11 @@
     "phpcs": [
       "phpcs"
     ],
-    "phpcbf": [
-      "phpcbf"
-    ],
     "makepot-audit": [
-      "wp i18n make-pot . --slug=masteriyo"
+      "wp i18n make-pot . --slug=rswp"
     ],
     "makepot": [
-      "\"vendor/bin/wp\" i18n make-pot . ./i18n/languages/masteriyo.pot --include=\"assets/js/build,includes,templates\""
+      "\"vendor/bin/wp\" i18n make-pot . ./i18n/languages/rswp.pot --include=\"assets/js/build,includes,templates\""
     ],
     "post-update-cmd": [
       "@php -r \"! file_exists( '.env' ) && copy( '.env.example', '.env' );\"",
@@ -70,9 +67,8 @@
     "wordpress-install-dir": "tests/wordpress",
     "scripts-description": {
       "phpcs": "Analyze code against the WordPress coding standard with PHP_CodeSniffer",
-      "phpcbf": "Fix coding standards warnings/errors automatically with PHP Code Beautifier",
-      "makepot-audit": "Generate i18n/languages/masteriyo.pot file and run audit",
-      "makepot": "Generate i18n/languages/masteriyo.pot file"
+      "makepot-audit": "Generate i18n/languages/rswp.pot file and run audit",
+      "makepot": "Generate i18n/languages/rswp.pot file"
     }
   },
   "require-dev": {
